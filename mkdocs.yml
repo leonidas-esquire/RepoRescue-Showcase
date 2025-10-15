@@ -1,0 +1,23 @@
+site_name: Repo Rescue™ Showcase
+site_url: https://automation-marketing-experts.github.io/RepoRescue-Showcase/
+
+nav:
+  - Home: index.md
+  - Getting Started:
+    - Installation: getting-started/installation.md
+    - Quickstart: getting-started/quickstart.md
+  - User Guide:
+    - Overview: user-guide/overview.md
+  - Developer Guide:
+    - Architecture: developer-guide/architecture.md
+  - Deployment:
+    - Production: deployment/production.md
+  - Troubleshooting:
+    - Common Issues: troubleshooting/common-issues.md
+
+theme:
+  name: material
+
+plugins:
+  - search
+
