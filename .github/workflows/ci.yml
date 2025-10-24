@@ -1,0 +1,47 @@
+name: CI
+
+on:
+  push:
+    branches: [ "**" ]
+  pull_request:
+    branches: [ "**" ]
+
+jobs:
+  tests:
+    name: Python ${{ matrix.python-version }} • pytest
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: [ "3.10", "3.11" ]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: "pip"
+
+      - name: Install dependencies
+        shell: bash
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then
+            pip install -r requirements.txt
+          else
+            # Minimal deps for test execution if no requirements.txt yet
+            pip install pytest
+          fi
+
+      - name: Run tests
+        shell: bash
+        run: |
+          # Show Python & pip versions for reproducibility
+          python --version
+          pip --version
+          # Run tests quietly; add -q to reduce noise
+          pytest -q
